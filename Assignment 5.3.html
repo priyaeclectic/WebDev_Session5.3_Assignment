@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>Assignment 5.3</title>
+</head>
+<body onload="createStudentList();">
+<p id="stud"></p>
+Eyecolor:<input type="text" id="eyecolor"/>
+Mother's name:<input type="text" id="mothername"/>
+<button onclick="addproperty();">Add properties</button><br><br>
+<select id="property-list">
+</select>
+<button onclick="removeproperty();">Remove property</button>
+</body>
+
+<script type="text/javascript">
+	var StudentDetails = {Studentname:"ABC",						/*Create student object with properties*/
+									DOB:"9-May-1985",
+									Skills:"MCA",
+									Address:{
+										State:"Tamilnadu",
+										City:"Chennai",
+										Country:"India",
+										Pincode:"600020"
+									}
+							 }
+	function createStudentList(){									/*Creates select list dynamically from object details*/
+		
+		var select = document.getElementById("property-list");
+		for(i in StudentDetails)
+		{
+			if (i==='Address'){
+				for(x in StudentDetails.Address){
+					select.options[select.options.length] = new Option(x,x);
+					document.getElementById("stud").innerHTML = document.getElementById("stud").innerHTML + x+":"+StudentDetails.Address[x]+"<br>";
+				}
+			}
+			else{
+			select.options[select.options.length] = new Option(i,i);
+			document.getElementById("stud").innerHTML = document.getElementById("stud").innerHTML+i+":"+StudentDetails[i]+"<br>";
+			}
+			
+		}
+
+	}
+
+	function addproperty(){											/*Adds property to object and refreshes the select list accordingly*/
+	    var select = document.getElementById("property-list");
+	    if(document.getElementById('mothername').value.length>0){
+	    	select.options[select.options.length] = new Option(document.getElementById('mothername').id,select.options.length);
+		}
+		if(document.getElementById('eyecolor').value.length>0){
+	    	select.options[select.options.length] = new Option(document.getElementById('eyecolor').id,select.options.length);
+		}
+	    options[selectedIndex].value&&self.location.reload(true);
+	}
+
+	function removeproperty(){										/*Removes property from the object and refreshes the select list accordingly*/
+	    var select = document.getElementById("property-list");
+	    var prop=select.options[select.selectedIndex].value;
+	    delete StudentDetails[prop];
+	    select.options[select.selectedIndex] = null;
+	}		 					 
+</script>
+</html>
